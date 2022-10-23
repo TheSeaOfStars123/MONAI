@@ -1,0 +1,65 @@
+Apr25_22-26-24_DESKTOP-8I49QBC	milmodel_0425
+Apr26_14-25-04_DESKTOP-8I49QBC	densenet_randomRotate_adam_bs1_1e-5
+Apr27_15-54-19_DESKTOP-8I49QBC	densenet_adam_bs1_1e-5
+Apr27_16-19-47_DESKTOP-8I49QBC	densenet_adam_bs2_1e-5
+Apr27_22-27-33_DESKTOP-8I49QBC	densenet_adam_bs3_1e-5
+Apr27_22-37-40_DESKTOP-8I49QBC	densenet_sgd_bs3_1e-5
+Apr28_10-14-32_DESKTOP-8I49QBC	densenet_sgd_bs4_1e-3
+Apr28_14-38-04_DESKTOP-8I49QBC	densenet_adam_bs4_1e-4
+Apr28_15-28-17_DESKTOP-8I49QBC	densenet_adam_bs4_1e-4_BCELoss
+Apr28_16-10-44_DESKTOP-8I49QBC	densenet_adam_bs4_1e-4_FocalLoss_gmma2
+Apr28_17-05-54_DESKTOP-8I49QBC	densenet_adam_bs4_1e-5_FocalLoss_gmma1
+Apr28_18-54-36_DESKTOP-8I49QBC	resnet_adam_bs4_1e-5_CELoss
+Apr28_20-49-42_DESKTOP-8I49QBC	resnet_adam_bs4_1e-4_WCELoss
+Apr28_21-07-49_DESKTOP-8I49QBC	densenet_adam_bs4_1e-4_WCELoss
+May02_13-18-32_DESKTOP-8I49QBC	densenet_adam_bs3_1e-5_FocalLoss_gmma1_192x192x48	
+May02_15-50-56_DESKTOP-8I49QBC	densenet_adam_bs3_1e-5_FocalLoss_gmma1_192x192x48_GCY
+May02_17-38-49_DESKTOP-8I49QBC	resnet_adam_bs3_1e-5_CE_192x192x48_GCY
+May02_21-29-56_DESKTOP-8I49QBC	resnet_adam_bs3_1e-5_CE_192x192x48_GCY_weights_ph3
+
+更改batch_size或lr或model：×
+
+类标签不平衡问题：WCE或Focal Loss ×
+1样本：0样本=7：3
+1样本的权w-=0.35
+0样本的权w+=0.65
+
+ScaleIntensityd等一系统的Transformer：×
+
+增大数据集图像size（由128->192）：×
+
+增加数据集训练集数量（由200->215）：×
+
+过采样label=0的数据：×
+
+使用model-resnet18：×
+
+使用预训练模型resnet50：
+
+网络增加dropout层：
+
+查看loss增加的训练集有无异常之处：
+
+使用MONAI中crop的方法：
+
+T2和T1如何进行配准？：
+
+增加T2和DWI的数据：
+
+使用pyradicoms提取特征到csv中（参考AMINN做法）：
+
+建立自编码网络：
+
+
+
+
+可采用的预处理方法
+•图像方位校正
+•头骨分离
+•偏置场校正（ N4itk ）
+•基于强度的线性配准（rigid and affine)
+•强度归一化/直方图标准化/脑组织概率图（自动分割）
+
+
+
+

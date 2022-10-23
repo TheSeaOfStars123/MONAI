@@ -1,0 +1,3 @@
+第一步：pip install -r requirements-dev.txt
+第二步：python setup.py develop
+第三步：检验是否安装好：import monai; monai.config.print_config()

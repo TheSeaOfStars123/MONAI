@@ -41,7 +41,6 @@ def main():
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     print_config()
 
-    #############
     # Create MONAI dataset
     default_prefix = 'D:/Desktop/BREAST/BREAST/'
     dce_train_data = default_prefix + 'breast-dataset-training-validation/Breast_TrainingData'
@@ -119,34 +118,34 @@ def main():
     post_pred = Compose([EnsureType(), Activations(softmax=True)])
     post_label = Compose([EnsureType(), AsDiscrete(to_onehot=2)])
 
-    # # Define dataset, data loader
-    # check_ds = monai.data.Dataset(data=train_files, transform=train_transforms)
-    # check_loader = DataLoader(check_ds, batch_size=1, num_workers=4, pin_memory=pin_memory)
-    # # check data
-    # def lala(iterable, default=None):
-    #     for i, index in zip(check_loader, range(10)):
-    #         if index == 8:
-    #             return i
-    #     return default
-    # check_data = lala(check_loader)
-    # # check_data = monai.utils.misc.first(check_loader)
-    # print(check_data["dceph1"].shape, check_data["inputs"].shape, check_data["label"])
-    # IMAGE_WIDTH = 192
-    # # show check_data dceph1(1, 1, 128, 128, 48) + dceph3 + dceph5 + inputs(1, 3, 128, 128, 48)
-    # sample_dce_image = torch.unsqueeze(torch.stack((check_data["dceph1"][0, 0, :, :, 0:41:10],
-    #                              check_data["dceph3"][0, 0, :, :, 0:41:10],
-    #                              check_data["dceph5"][0, 0, :, :, 0:41:10]))
-    #                                    .permute(0, 3, 1, 2).reshape(15, IMAGE_WIDTH, IMAGE_WIDTH), dim=1).repeat(1, 3, 1, 1)
-    # # (3, 128, 128, 5) -> (3, 5, 128, 128) -> (15, 128, 128) -> (15, 3, 128, 128)
-    # grid_dce_image = make_grid(sample_dce_image, nrow=5, padding=0, normalize=False)  # nrow一行放5个
-    # plt.imshow(np.transpose(grid_dce_image.numpy(), (1, 2, 0)))
-    # plt.show()
-    # sample_inputs_image = torch.unsqueeze(check_data["inputs"][0, 0:3, :, :, 0:41:10].permute(0, 3, 1, 2)
-    #                                       .reshape(15, IMAGE_WIDTH, IMAGE_WIDTH), dim=1).repeat(1, 3, 1, 1)
-    # # (3, 128, 128, 5) -> (3, 5, 128, 128) -> (15, 128, 128) -> (15, 3, 128, 128)
-    # grid_inputs_image = make_grid(sample_inputs_image, nrow=5, padding=0, normalize=False)  # nrow一行放5个
-    # plt.imshow(np.transpose(grid_inputs_image.numpy(), (1, 2, 0)))
-    # plt.show()
+    # Define dataset, data loader
+    check_ds = monai.data.Dataset(data=train_files, transform=train_transforms)
+    check_loader = DataLoader(check_ds, batch_size=1, num_workers=4, pin_memory=pin_memory)
+    # check data
+    def lala(iterable, default=None):
+        for i, index in zip(check_loader, range(10)):
+            if index == 8:
+                return i
+        return default
+    check_data = lala(check_loader)
+    # check_data = monai.utils.misc.first(check_loader)
+    print(check_data["dceph1"].shape, check_data["inputs"].shape, check_data["label"])
+    IMAGE_WIDTH = 192
+    # show check_data dceph1(1, 1, 128, 128, 48) + dceph3 + dceph5 + inputs(1, 3, 128, 128, 48)
+    sample_dce_image = torch.unsqueeze(torch.stack((check_data["dceph1"][0, 0, :, :, 0:41:10],
+                                 check_data["dceph3"][0, 0, :, :, 0:41:10],
+                                 check_data["dceph5"][0, 0, :, :, 0:41:10]))
+                                       .permute(0, 3, 1, 2).reshape(15, IMAGE_WIDTH, IMAGE_WIDTH), dim=1).repeat(1, 3, 1, 1)
+    # (3, 128, 128, 5) -> (3, 5, 128, 128) -> (15, 128, 128) -> (15, 3, 128, 128)
+    grid_dce_image = make_grid(sample_dce_image, nrow=5, padding=0, normalize=False)  # nrow一行放5个
+    plt.imshow(np.transpose(grid_dce_image.numpy(), (1, 2, 0)))
+    plt.show()
+    sample_inputs_image = torch.unsqueeze(check_data["inputs"][0, 0:3, :, :, 0:41:10].permute(0, 3, 1, 2)
+                                          .reshape(15, IMAGE_WIDTH, IMAGE_WIDTH), dim=1).repeat(1, 3, 1, 1)
+    # (3, 128, 128, 5) -> (3, 5, 128, 128) -> (15, 128, 128) -> (15, 3, 128, 128)
+    grid_inputs_image = make_grid(sample_inputs_image, nrow=5, padding=0, normalize=False)  # nrow一行放5个
+    plt.imshow(np.transpose(grid_inputs_image.numpy(), (1, 2, 0)))
+    plt.show()
 
 
     # create a training data loader
@@ -267,6 +266,7 @@ def main():
                 auc_metric.reset()
                 metric_values.append(auc_result)
                 del y_pred_act, y_onehot
+
                 if acc_metric > best_metric:
                     best_metric = acc_metric
                     best_metric_epoch = epoch + 1
@@ -283,15 +283,6 @@ def main():
 
     print(f"train completed, best_metric: {best_metric:.4f} at epoch: {best_metric_epoch}")
     writer.close()
-
-
-# def run_interence()
-
-
-
-
-
-
 
 
 if __name__ == '__main__':
